@@ -1,0 +1,21 @@
+# Binaries
+/grist
+/bin/
+/dist/
+*.exe
+*.test
+*.out
+
+# Go build/test artifacts
+*.prof
+coverage.txt
+coverage.html
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Local env
+.env
+.env.local
