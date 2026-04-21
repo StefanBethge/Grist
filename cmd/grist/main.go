@@ -13,6 +13,9 @@ import (
 	"fmt"
 	"io"
 	"os"
+
+	"github.com/stefanbethge/grist/recipe"
+	"github.com/stefanbethge/grist/runtime"
 )
 
 // version is overridden at release time via -ldflags "-X main.version=...".
@@ -83,7 +86,15 @@ func cmdRun(args []string, stdout, stderr io.Writer) error {
 		fs.Usage()
 		return errors.New("exactly one recipe path is required")
 	}
-	return fmt.Errorf("not implemented yet: run %s", fs.Arg(0))
+
+	r, warnings, err := recipe.Load(fs.Arg(0))
+	for _, w := range warnings {
+		fmt.Fprintln(stderr, "warning:", w)
+	}
+	if err != nil {
+		return err
+	}
+	return runtime.Run(r)
 }
 
 func cmdBuild(args []string, stdout, stderr io.Writer) error {

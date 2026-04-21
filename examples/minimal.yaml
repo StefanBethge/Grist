@@ -1,0 +1,15 @@
+version: 1
+
+source:
+  type: csv
+  path: minimal.in.csv
+  sep: ";"
+
+steps:
+  - trim: { columns: [name, "E-Mail"] }
+  - rename: { from: "E-Mail", to: email }
+
+sink:
+  type: csv
+  path: minimal.out.csv
+  sep: ";"
